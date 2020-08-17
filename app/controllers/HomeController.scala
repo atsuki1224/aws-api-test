@@ -24,7 +24,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents, w
       val url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=7830060"
       val request = ws.url(url)
       val result: Future[String] = request.get().map{
-        response => (response.json \ "address1").as[String]
+        response => (response.json \ "addr1").as[String]
       }
       val text: String = Await.result(result, Duration.Inf)
       println(text)
