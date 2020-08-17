@@ -5,8 +5,9 @@ import play.api._
 import play.api.mvc._
 
 import play.api.libs.ws._
-import scala.concurrent.Future
+import scala.concurrent.{Future, Await}
 import javax.inject.Inject
+import scala.concurrent.duration.Duration
 
 import play.api.libs.ws.WSClient
 
@@ -21,16 +22,12 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents, w
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
     def index() = Action { implicit request: Request[AnyContent] =>
       val url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=7830060"
-      val holder = ws.url(url)
-      val complexHolder =
-      holder.withHeaders("Accept" -> "application/json")
-      .withQueryString("search" -> "play")
-      val futureResponse: Future[WSResponse] = complexHolder.get()
-      println("これが値")
-      for {
-         result <- futureResponse
-      } yield result 
-      println("これが値")
+      val request = ws.url(url)
+      val result: Future[String] = request.get().map{
+        response => (response.json \ "address1").as[String]
+      }
+      val text: String = Await.result(result, Duration.Inf)
+      println(text)
       Ok(views.html.index())
     }
 }
