@@ -21,13 +21,14 @@ import scala.concurrent.{ExecutionContext, Future}
 class HomeController @Inject()(val controllerComponents: ControllerComponents, ws: WSClient) extends BaseController {
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
     def index() = Action { implicit request: Request[AnyContent] =>
-      val url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=7830060"
+      val url = "https://api.github.com/users/atsuki1224"
+      //val url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=7830060"
       val request = ws.url(url)
       val result: Future[String] = request.get().map{
-        response => (response.json \ "addr1").as[String]
+        response => (response.json \ "bio").as[String]
       }
       val text: String = Await.result(result, Duration.Inf)
       println(text)
-      Ok(views.html.index())
+      Ok(views.html.index(text))
     }
 }
