@@ -53,7 +53,6 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents, w
        .addQueryStringParameters("search" -> "play")
        val futureResponse: Future[WSResponse] = complexRequest.get()
        val text: WSResponse = Await.result(futureResponse, Duration.Inf)
-       println("これがあたいだよおおおおおおおおおおおおお")
        println(text)
        Ok(views.html.index())
    }
