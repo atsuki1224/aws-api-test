@@ -15,6 +15,9 @@ import scala.concurrent.{ExecutionContext, Future}
  * application's home page.
  */
 class HomeController @Inject()(val controllerComponents: ControllerComponents, ws: WSClient) extends BaseController {
+  val url = "https://api.line.me/v2/bot/message/reply" 
+  val channelToken = "kEY"
+
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
     def index() = Action { implicit request: Request[AnyContent] =>
       val url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/1224"
