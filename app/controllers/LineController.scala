@@ -14,12 +14,16 @@ import scala.concurrent.{ExecutionContext, Future}
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
-class HomeController @Inject()(val controllerComponents: ControllerComponents, ws: WSClient) extends BaseController {
+class LineController @Inject()(val controllerComponents: ControllerComponents, ws: WSClient) extends BaseController {
   val url = "https://api.line.me/v2/bot/message/reply" 
   val channelToken = "kEY"
 
+  def webhook = Action { request =>
+    Ok
+  }
+
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-    def index() = Action { implicit request: Request[AnyContent] =>
+    def echo() = Action { implicit request: Request[AnyContent] =>
       val url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/1224"
       //val url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=7830060"
       val request = ws.url(url)
