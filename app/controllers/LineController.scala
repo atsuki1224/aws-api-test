@@ -9,6 +9,7 @@ import javax.inject.Inject
 import scala.concurrent.duration.Duration
 import play.api.libs.ws.WSClient
 import scala.concurrent.{ExecutionContext, Future}
+
 /**
  *
  * This controller creates an `Action` to handle HTTP requests to the
@@ -21,7 +22,7 @@ class LineController @Inject()(val controllerComponents: ControllerComponents, w
   def webhook = Action { request =>
     Ok
   }
-
+/*
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
     def echo() = Action { implicit request: Request[AnyContent] =>
       val url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/1224"
@@ -34,6 +35,7 @@ class LineController @Inject()(val controllerComponents: ControllerComponents, w
       println(text)
       Ok(views.html.index(text))
     }
+    */
 }
 
 
