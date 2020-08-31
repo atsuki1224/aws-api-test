@@ -15,13 +15,16 @@ import scala.concurrent.{ExecutionContext, Future}
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
+@Singleton
 class LineController @Inject()(val controllerComponents: ControllerComponents, ws: WSClient) extends BaseController {
   val url = "https://api.line.me/v2/bot/message/reply" 
   val channelToken = "kEY"
 
-  def webhook = Action { request =>
-    Ok
+  def index = Action { implicit request: Request[AnyContent] =>
+    
+    Ok(views.html.index())
   }
+}
 /*
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
     def echo() = Action { implicit request: Request[AnyContent] =>
@@ -36,7 +39,6 @@ class LineController @Inject()(val controllerComponents: ControllerComponents, w
       Ok(views.html.index(text))
     }
     */
-}
 
 
 
