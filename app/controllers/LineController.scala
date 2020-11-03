@@ -22,7 +22,7 @@ class LineController @Inject()(val controllerComponents: ControllerComponents, w
 
   def index = Action { implicit request: Request[AnyContent] =>
     
-    Ok(views.html.index())
+    Ok(views.html.main("タイトル"))
   }
 }
 /*
